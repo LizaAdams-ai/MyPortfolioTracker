@@ -13,8 +13,32 @@ class PortfolioTracker {
 
     setupEventListeners() {
         const addPositionBtn = document.getElementById('add-position');
+        const modal = document.getElementById('add-position-modal');
+        const closeBtn = modal.querySelector('.close');
+        const cancelBtn = document.getElementById('cancel-btn');
+        const form = document.getElementById('add-position-form');
+
         addPositionBtn.addEventListener('click', () => {
-            this.showAddPositionModal();
+            this.showModal();
+        });
+
+        closeBtn.addEventListener('click', () => {
+            this.hideModal();
+        });
+
+        cancelBtn.addEventListener('click', () => {
+            this.hideModal();
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                this.hideModal();
+            }
+        });
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.handleFormSubmit();
         });
     }
 
@@ -94,17 +118,33 @@ class PortfolioTracker {
         }).join('');
     }
 
-    showAddPositionModal() {
-        const symbol = prompt('Enter stock symbol (e.g., AAPL):');
-        if (!symbol) return;
+    showModal() {
+        const modal = document.getElementById('add-position-modal');
+        modal.style.display = 'block';
+        document.getElementById('symbol').focus();
+    }
 
-        const shares = prompt('Enter number of shares:');
-        if (!shares || isNaN(shares)) return;
+    hideModal() {
+        const modal = document.getElementById('add-position-modal');
+        modal.style.display = 'none';
+        this.clearForm();
+    }
 
-        const avgCost = prompt('Enter average cost per share:');
-        if (!avgCost || isNaN(avgCost)) return;
+    clearForm() {
+        document.getElementById('symbol').value = '';
+        document.getElementById('shares').value = '';
+        document.getElementById('avg-cost').value = '';
+    }
 
-        this.addPosition(symbol, shares, avgCost);
+    handleFormSubmit() {
+        const symbol = document.getElementById('symbol').value.trim();
+        const shares = document.getElementById('shares').value;
+        const avgCost = document.getElementById('avg-cost').value;
+
+        if (symbol && shares && avgCost) {
+            this.addPosition(symbol, shares, avgCost);
+            this.hideModal();
+        }
     }
 }
 
