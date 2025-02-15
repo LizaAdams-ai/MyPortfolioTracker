@@ -256,3 +256,11 @@ header h1 {
 .btn-secondary:hover {
     background-color: #d5dbdb;
 }
+
+.positive {
+    color: #27ae60;
+}
+
+.negative {
+    color: #e74c3c;
+}

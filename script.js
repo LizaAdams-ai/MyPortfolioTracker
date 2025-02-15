@@ -1,6 +1,8 @@
 class PortfolioTracker {
     constructor() {
         this.positions = [];
+        this.lastUpdate = null;
+        this.priceUpdateInterval = null;
         this.init();
     }
 
@@ -9,6 +11,7 @@ class PortfolioTracker {
         this.setupEventListeners();
         this.updateSummary();
         this.renderHoldings();
+        this.startPriceUpdates();
     }
 
     setupEventListeners() {
@@ -145,6 +148,39 @@ class PortfolioTracker {
             this.addPosition(symbol, shares, avgCost);
             this.hideModal();
         }
+    }
+
+    startPriceUpdates() {
+        this.updatePrices();
+        this.priceUpdateInterval = setInterval(() => {
+            this.updatePrices();
+        }, 30000); // Update every 30 seconds
+    }
+
+    updatePrices() {
+        if (this.positions.length === 0) return;
+
+        const oldTotal = this.positions.reduce((sum, pos) => sum + (pos.shares * pos.currentPrice), 0);
+
+        this.positions.forEach(position => {
+            const volatility = 0.02;
+            const changePercent = (Math.random() - 0.5) * volatility;
+            position.currentPrice = Math.max(0.01, position.currentPrice * (1 + changePercent));
+        });
+
+        const newTotal = this.positions.reduce((sum, pos) => sum + (pos.shares * pos.currentPrice), 0);
+        const dailyChange = newTotal - oldTotal;
+        const dailyChangePercent = oldTotal > 0 ? (dailyChange / oldTotal * 100) : 0;
+
+        const dailyChangeElement = document.getElementById('daily-change');
+        const changeClass = dailyChange >= 0 ? 'positive' : 'negative';
+        dailyChangeElement.className = `value ${changeClass}`;
+        dailyChangeElement.textContent = `$${dailyChange.toFixed(2)} (${dailyChangePercent.toFixed(2)}%)`;
+
+        this.lastUpdate = new Date();
+        this.savePositions();
+        this.updateSummary();
+        this.renderHoldings();
     }
 }
 
