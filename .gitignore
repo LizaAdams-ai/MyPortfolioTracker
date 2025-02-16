@@ -1,20 +1,42 @@
 # Dependencies
 node_modules/
-.claude
 npm-debug.log*
+.claude
+
+# Build outputs
+dist/
+build/
 
 # IDE files
 .vscode/
-CLAUDE.md
 .idea/
+*.swp
+*.swo
+CLAUDE.md
 
 # OS generated files
 .DS_Store
 Thumbs.db
+*.tmp
+.temp/
 
 # Local environment
 .env
 .env.local
+.env.production
+.env.staging
 
 # Logs
 *.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Cache files
+.npm
+.yarn/cache
+
+# Coverage reports
+coverage/
+.nyc_output

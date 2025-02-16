@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyPortfolioTracker</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container">
@@ -32,10 +33,49 @@
                 </div>
             </section>
 
+            <section class="charts-section">
+                <h2>Performance Charts</h2>
+                <div class="chart-container">
+                    <div class="chart-item">
+                        <h3>Portfolio Value Over Time</h3>
+                        <canvas id="portfolioChart"></canvas>
+                    </div>
+                    <div class="chart-item">
+                        <h3>Asset Allocation</h3>
+                        <canvas id="allocationChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section class="stats-section">
+                <h2>Portfolio Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Best Performer</h3>
+                        <div class="stat-value" id="best-performer">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Worst Performer</h3>
+                        <div class="stat-value" id="worst-performer">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Positions</h3>
+                        <div class="stat-value" id="total-positions">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Avg. Return</h3>
+                        <div class="stat-value" id="avg-return">0.00%</div>
+                    </div>
+                </div>
+            </section>
+
             <section class="holdings-section">
                 <div class="section-header">
                     <h2>Holdings</h2>
-                    <button class="btn-primary" id="add-position">Add Position</button>
+                    <div class="header-buttons">
+                        <button class="btn-secondary" id="export-data">Export Data</button>
+                        <button class="btn-primary" id="add-position">Add Position</button>
+                    </div>
                 </div>
                 <div class="holdings-table">
                     <div class="table-header">
@@ -45,6 +85,7 @@
                         <span>Current Price</span>
                         <span>Market Value</span>
                         <span>Gain/Loss</span>
+                        <span>Actions</span>
                     </div>
                     <div id="holdings-list">
                         <div class="empty-state">
