@@ -1,0 +1,15 @@
+{
+  "name": "my-portfolio-tracker",
+  "version": "1.0.0",
+  "description": "A personal investment portfolio tracker",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "python -m http.server 8000"
+  },
+  "keywords": ["portfolio", "investment", "tracker", "finance"],
+  "author": "LizaAdams-ai",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}
